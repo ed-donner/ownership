@@ -66,11 +66,11 @@ db_user = odoo
 data_dir = .odoo-data
 ```
 
-On Windows, add these two lines as well:
+On Windows, add these two lines as well. Without the second, PostgreSQL on Windows refuses the database Odoo tries to create:
 
 ```
-db_host = localhost
 db_password = odoo
+db_template = template1
 ```
 
 Install Odoo's Python packages:
