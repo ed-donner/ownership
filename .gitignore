@@ -51,3 +51,8 @@ package.json
 /man/
 /share/
 /src/
+
+# Take Ownership: files for coding agents
+!.claude/
+.claude/settings.local.json
+!.mcp.json
