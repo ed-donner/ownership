@@ -25,6 +25,7 @@ class ProductTemplate(models.Model):
     )
     battery_health = fields.Integer(
         string="Battery health",
+        aggregator=None,
         help="Remaining battery capacity in percent, from 0 to 100.",
     )
     has_battery = fields.Boolean(compute='_compute_has_battery')
