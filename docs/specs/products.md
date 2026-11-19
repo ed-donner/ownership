@@ -24,7 +24,7 @@ Spec of the Products area for agents customizing it. Core code is in `addons/pro
 | Security | `addons/product/security/ir.access.csv`, `addons/product/security/product_security.xml` | Access rows, groups, multi-company rules |
 | Manifest | `addons/product/__manifest__.py` | Depends on `base`, `mail`, `uom`; lists data files and assets |
 
-Other modules add fields to these models, so grep before assuming a field is absent. Examples: stock in `addons/stock/models/product.py`, web shop in `addons/website_sale/models/product_template.py`.
+Other modules add fields to these models, so grep before assuming a field is absent. Examples: stock in `addons/stock/models/product.py`, web shop in `addons/website_sale/models/product_template.py`, and ours in `addons/take_ownership/models/product_template.py`: `condition_grade`, `battery_health` and `has_battery` (see [take-ownership.md](take-ownership.md)).
 
 ## How the pieces connect
 
@@ -57,12 +57,12 @@ Other apps extend the same form: `addons/sale/views/product_views.xml`, `addons/
 
 ## Extending from our own addon
 
-Models: inherit in place, do not copy.
+Models: inherit in place, do not copy. `addons/take_ownership/models/product_template.py` is the working example:
 
 ```python
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
-    condition_grade = fields.Selection([...])
+    condition_grade = fields.Selection([...], required=True, default='b')
 ```
 
 - Add the file to models/__init__.py, list the module in `depends` (at least `product`; add `stock` or `website_sale` if you anchor on their views). Manifest format: `addons/product/__manifest__.py`.
@@ -72,7 +72,12 @@ class ProductTemplate(models.Model):
 - Access: new fields inherit the model's access rows in `addons/product/security/ir.access.csv`. A new model needs its own row in your security/ir.access.csv, and a company rule if it has `company_id` (see `addons/product/security/ir.access.csv` for the pattern).
 - Assets: backend JS/SCSS goes in the manifest under `web.assets_backend`, as in `addons/product/__manifest__.py`. Do not edit core asset lists.
 - Tests: subclass `addons/product/tests/common.py` helpers or `addons/product/tests/test_variants.py` patterns; examples for pricelists in `addons/product/tests/test_pricelist.py`.
-- Demo data: `addons/product/data/product_demo.xml`; categories in `addons/product/data/product_category_demo.xml`.
+- Demo data: `addons/product/data/product_demo.xml`; categories in `addons/product/data/product_category_demo.xml`. Our demo devices are in `addons/take_ownership/demo/product_demo.xml`, and `addons/take_ownership/demo/archive_odoo_demo_products.xml` archives Odoo's demo templates.
+- Categories: our data creates Laptops, Phones, Tablets and Accessories under `product.product_category_goods` (`addons/take_ownership/data/product_category_data.xml`). Whether a product has a battery figure is decided by `categ_id` being one of the first three or a child (`has_battery`).
+
+## Our additions
+
+On top of the core views above, `addons/take_ownership/views/product_template_views.xml` adds the grade badge and the battery progress bar to the template form, list and kanban, and a grade filter and group-by to the search view. Anchors: `group_general` on `product.product_template_form_view`, `name` on `product.product_template_tree_view`, the card `main` on `product.product_template_kanban_view`. Details in [take-ownership.md](take-ownership.md).
 
 ## Odoo 20 gotchas
 

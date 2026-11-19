@@ -10,7 +10,7 @@ Overview for coding agents. Odoo 20.0 Community (`odoo/release.py`). Details per
 | `odoo.conf` | Our config: `db_name`, `db_user`, `data_dir`. No `addons_path`, so Odoo uses its default. |
 | `odoo/` | The framework: ORM (`odoo/orm/`), module loading (`odoo/modules/`), HTTP (`odoo/http/`), tools (`odoo/tools/`), tests (`odoo/tests/`). |
 | `odoo/addons/` | Core addons shipped with the framework, including `base` (`odoo/addons/base/__manifest__.py`). |
-| `addons/` | All other modules: Odoo's own apps and our own. Odoo's modules stay unchanged. |
+| `addons/` | All other modules: Odoo's own apps and our own. Odoo's modules stay unchanged. Ours is `addons/take_ownership`: condition grade and battery health on products, shop page, sample devices, brand ([take-ownership.md](specs/take-ownership.md)). |
 | `docs/specs/` | Area files, see the index below. |
 
 - Command-line options (`-i`, `-u`, `--test-enable`, `--test-tags`, `--dev`) are defined in `odoo/tools/config.py`.
@@ -103,7 +103,7 @@ Code is in `odoo/orm/`; addons import it through `from odoo import api, fields, 
 - Views: one folder per type in `addons/web/static/src/views/` (form, list, kanban, graph, pivot, calendar), compiled by `addons/web/static/src/views/view_compiler.js`.
 - Tours: `addons/web_tour/static/src/` (`addons/web_tour/static/src/tour_plugin.js`, `addons/web_tour/static/src/tour_step.js`, tour_automatic/, tour_recorder/).
 - Third-party libs are in `addons/web/static/lib/` (Owl, Bootstrap, Luxon, Hoot, Chart, FullCalendar).
-- Theming and area detail: [web-client.md](specs/web-client.md).
+- Theming and area detail: [web-client.md](specs/web-client.md). The Take Ownership brand (Sea Green, Midnight navbar, Instrument Sans) is applied by our addon, light mode only: [take-ownership.md](specs/take-ownership.md).
 
 ## Index of area files
 
@@ -114,3 +114,4 @@ Code is in `odoo/orm/`; addons import it through `from odoo import api, fields, 
 - [Inventory](specs/inventory.md)
 - [Web shop](specs/web-shop.md)
 - [Web client and theming](specs/web-client.md)
+- [Take Ownership addon](specs/take-ownership.md): our own addon, the condition grade, battery health, sample devices and brand

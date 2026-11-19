@@ -1,6 +1,6 @@
 # Web client and theming
 
-Area spec for agents customizing the back office UI and its look. Covers `addons/web` (the Owl web client, asset bundles, SCSS variables) and `addons/html_editor` (HTML field editor). There is no `web_editor` in 20.0; `addons/html_editor` replaces it, and the website builder lives in `addons/html_builder`. Brand values (Instrument Sans, Sea Green `#06D6A0`, dark page `#04232E`) are in `.claude/skills/brand/SKILL.md`; JS/SCSS house rules are in `skills/odoo-web-guidelines/SKILL.md` and `skills/odoo-web-guidelines/guidelines/`.
+Area spec for agents customizing the back office UI and its look. Covers `addons/web` (the Owl web client, asset bundles, SCSS variables) and `addons/html_editor` (HTML field editor). There is no `web_editor` in 20.0; `addons/html_editor` replaces it, and the website builder lives in `addons/html_builder`. Brand values (Instrument Sans, Sea Green `#06D6A0`, Midnight `#073B4C`) are in `.claude/skills/brand/SKILL.md`, and `addons/take_ownership` applies them to the back office (see [take-ownership.md](take-ownership.md)); JS/SCSS house rules are in `skills/odoo-web-guidelines/SKILL.md` and `skills/odoo-web-guidelines/guidelines/`.
 
 ## Key files
 
@@ -59,11 +59,11 @@ Area spec for agents customizing the back office UI and its look. Covers `addons
 - The template picks the bundle from `color_scheme`; core returns `"light"` always (`addons/web/models/ir_http.py`). Community has no switch; to enable dark mode override `color_scheme()` in a model inheriting `ir.http`. The offline page reads a `color_scheme=dark` cookie (`addons/web/views/webclient_templates.xml`).
 - Bootstrap dark variables are included via `addons/web/static/lib/bootstrap/scss/_variables-dark.scss` (`addons/web/__manifest__.py`).
 - `$o-webclient-color-scheme` exists in `addons/web/static/src/scss/primary_variables.scss`.
-- A dark brand surface (`#04232E`) therefore needs a *.dark.scss file in our addon plus a manifest entry for `web.assets_web_dark`. Adding it to `web.assets_backend` would leak into light mode.
+- Our back office is light mode only: `take_ownership` has no *.dark.scss file, no `web.assets_web_dark` entry and no `color_scheme()` override. A dark brand surface (`#04232E`) would need all three, and adding dark rules to `web.assets_backend` would leak into light mode.
 
 ## Extension points for our addon
 
-Our addon is take_ownership under addons/ (it exists on the `completed` branch, see `README.md`). Do not edit `addons/web`.
+Our addon is take_ownership under addons/ (it exists on the `completed` branch, see `README.md`). It sets the brand colors, fonts and a Midnight navbar through `web._assets_primary_variables`; that bundle is shared with the web shop and reports, so values there also reach them. Do not edit `addons/web`.
 
 | Goal | How | Reference |
 |---|---|---|
@@ -87,7 +87,7 @@ Manifest example for our addon:
         ('before', 'web/static/src/scss/primary_variables.scss', 'take_ownership/static/src/scss/primary_variables.scss'),
     ],
     'web.assets_backend': ['take_ownership/static/src/**/*'],
-    'web.assets_web_dark': ['take_ownership/static/src/**/*.dark.scss'],
+    'web.assets_frontend': ['take_ownership/static/src/shop/**/*'],
 },
 ```
 

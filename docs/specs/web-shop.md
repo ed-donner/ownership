@@ -41,6 +41,8 @@ The web shop is `addons/website_sale` (products, cart, checkout) running on `add
 
 ## Adding a field to the product card and product page
 
+Our addon already does this for the condition grade and battery health: `addons/take_ownership/views/product_templates.xml` inherits `website_sale.product_title` (see [take-ownership.md](take-ownership.md)). The shop grid and tiles are unchanged. The examples below are the general pattern.
+
 Add the model field first. Then inherit the templates from our addon's views/ or templates/ XML (listed in our manifest `data`).
 
 ```python
@@ -103,5 +105,5 @@ Our manifest should depend on `website_sale`, and declare assets like this (the 
 - Optional blocks are templates with `active="False"` toggled by the editor; test them with `is_view_active('website_sale.product_comment')` as the shop templates do (`addons/website_sale/templates/product_tile_templates.xml`).
 - Pricing and variants on the page come from `_get_combination_info`, loaded by JS on variant change, so a field that depends on the selected variant must be added there (or to `_get_additional_combination_info`) and rendered by JS, not only by QWeb (`addons/website_sale/models/product_template.py`).
 - The cart is `request.cart` (a lazy sale order set in `addons/website_sale/models/ir_http.py`); use it to get the current cart in controllers.
-- Product visibility for visitors needs `website_published` and `sale_ok` (`addons/website_sale/security/ir.access.csv`, `addons/website/models/mixins.py`). Demo products that do not appear are usually unpublished or on another website (`website_id`).
+- Product visibility for visitors needs `website_published` and `sale_ok` (`addons/website_sale/security/ir.access.csv`, `addons/website/models/mixins.py`). Demo products that do not appear are usually unpublished or on another website (`website_id`). With our addon's demo data, Odoo's own demo products are archived (`addons/take_ownership/demo/archive_odoo_demo_products.xml`), so only the ten Take Ownership devices appear in /shop.
 - Tests: Python tests in `addons/website_sale/tests/` (for example `addons/website_sale/tests/test_customize.py`, `addons/website_sale/tests/test_checkout_flow.py`); browser tours in `addons/website_sale/static/tests/tours/`, bundled in `web.assets_tests`.
