@@ -1,0 +1,17 @@
+// Grade badge and battery bar on the shop product page.
+// Fixed brand colors: shop theme variables are not used.
+.o_take_ownership_condition {
+    .o_take_ownership_grade {
+        font-size: .875rem;
+        padding: .4em .8em;
+        border-radius: 999px;
+        &.o_take_ownership_grade_a { --badge-bg: #06D6A0; --badge-color: #073B4C; }
+        &.o_take_ownership_grade_b { --badge-bg: #118AB2; --badge-color: #FFFFFF; }
+        &.o_take_ownership_grade_c { --badge-bg: #FFC145; --badge-color: #073B4C; }
+        &.o_take_ownership_grade_parts { --badge-bg: #EF476F; --badge-color: #FFFFFF; }
+    }
+    .progress {
+        height: .5rem;
+        .progress-bar { background-color: #06D6A0; }
+    }
+}

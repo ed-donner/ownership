@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.take_ownership</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_general']/field[@name='type']" position="after">
+                <field name="has_battery" invisible="1"/>
+                <field name="condition_grade"
+                    widget="badge"
+                    decoration-success="condition_grade == 'a'"
+                    decoration-info="condition_grade == 'b'"
+                    decoration-warning="condition_grade == 'c'"
+                    decoration-danger="condition_grade == 'parts'"/>
+                <field name="battery_health"
+                    widget="progressbar"
+                    options="{'max_value': 100, 'editable': True}"
+                    invisible="not has_battery"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_tree_view" model="ir.ui.view">
+        <field name="name">product.template.list.inherit.take_ownership</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="has_battery" column_invisible="True"/>
+                <field name="condition_grade"
+                    widget="badge"
+                    optional="show"
+                    decoration-success="condition_grade == 'a'"
+                    decoration-info="condition_grade == 'b'"
+                    decoration-warning="condition_grade == 'c'"
+                    decoration-danger="condition_grade == 'parts'"/>
+                <field name="battery_health"
+                    widget="progressbar"
+                    optional="show"
+                    options="{'max_value': 100}"
+                    invisible="not has_battery"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="product_template_kanban_view" model="ir.ui.view">
+        <field name="name">product.template.kanban.inherit.take_ownership</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="condition_grade"/>
+                <field name="has_battery"/>
+            </xpath>
+            <xpath expr="//t[@t-name='card']/main//strong[@t-if='record.product_variant_count.value &gt; 1']" position="after">
+                <div class="mt-1">
+                    <field name="condition_grade"
+                        widget="badge"
+                        decoration-success="condition_grade == 'a'"
+                        decoration-info="condition_grade == 'b'"
+                        decoration-warning="condition_grade == 'c'"
+                        decoration-danger="condition_grade == 'parts'"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_search_view" model="ir.ui.view">
+        <field name="name">product.template.search.inherit.take_ownership</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <filter name="filter_to_purchase" position="after">
+                <separator/>
+                <filter string="Grade A" name="grade_a" domain="[('condition_grade', '=', 'a')]"/>
+                <filter string="Grade B" name="grade_b" domain="[('condition_grade', '=', 'b')]"/>
+                <filter string="Grade C" name="grade_c" domain="[('condition_grade', '=', 'c')]"/>
+                <filter string="Parts" name="grade_parts" domain="[('condition_grade', '=', 'parts')]"/>
+            </filter>
+            <filter name="group_by_categ_id" position="after">
+                <filter string="Condition" name="group_by_condition_grade" context="{'group_by': 'condition_grade'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

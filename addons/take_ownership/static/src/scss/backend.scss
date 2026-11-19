@@ -1,0 +1,27 @@
+// Back office components. Colors come from the brand variables.
+
+// Badge text: Midnight on the bright fills, white on the dark ones
+.o_web_client .badge {
+    &.text-bg-success, &.text-bg-warning {
+        color: #073B4C !important;
+    }
+    &.text-bg-info, &.text-bg-danger {
+        color: #FFFFFF !important;
+    }
+}
+
+// Panels are rounded, with no outline
+.o_web_client {
+    .o_form_sheet, .o_kanban_record, .o_list_renderer {
+        border-radius: 8px;
+        border: 0;
+    }
+}
+
+// Numbers and identifiers in JetBrains Mono
+.o_web_client .o_field_monetary input,
+.o_web_client .o_field_integer input,
+.o_web_client .o_field_float input,
+.o_web_client .o_progressbar_value {
+    font-family: "JetBrains Mono", monospace;
+}

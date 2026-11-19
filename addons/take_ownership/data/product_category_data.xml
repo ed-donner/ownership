@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Not noupdate: has_battery depends on these records -->
+    <record id="product_category_laptops" model="product.category">
+        <field name="name">Laptops</field>
+        <field name="parent_id" ref="product.product_category_goods"/>
+    </record>
+    <record id="product_category_phones" model="product.category">
+        <field name="name">Phones</field>
+        <field name="parent_id" ref="product.product_category_goods"/>
+    </record>
+    <record id="product_category_tablets" model="product.category">
+        <field name="name">Tablets</field>
+        <field name="parent_id" ref="product.product_category_goods"/>
+    </record>
+    <record id="product_category_accessories" model="product.category">
+        <field name="name">Accessories</field>
+        <field name="parent_id" ref="product.product_category_goods"/>
+    </record>
+</odoo>

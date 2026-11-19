@@ -1,6 +1,6 @@
 # Module index
 
-650 modules in `addons/`. Generated file, do not edit by hand.
+651 modules in `addons/`. Generated file, do not edit by hand.
 Regenerate with `uv run docs/gen_modules.py` (reads `addons/*/__manifest__.py`).
 
 - `addons/account` - Invoices & Payments (depends: base_setup, onboarding, product, analytic, portal, digest)
@@ -574,6 +574,7 @@ Regenerate with `uv run docs/gen_modules.py` (reads `addons/*/__manifest__.py`).
 - `addons/stock_sms` - Send text messages when final stock move (depends: stock, sms)
 - `addons/survey` - Send your surveys or share them live. (depends: auth_signup, http_routing, mail, web_tour, gamification, digest)
 - `addons/survey_crm` - Generate leads from surveys (depends: survey, crm)
+- `addons/take_ownership` - Condition grade and battery health for refurbished devices (depends: product, website_sale)
 - `addons/test_base_automation` - Base Automation Tests: Ensure Flow Robustness (depends: base_automation)
 - `addons/test_crm_full` - This module is intended to test the main crm flows of Odoo, both frontend and backend. (depends: crm, crm_iap_enrich, crm_iap_mine, crm_sms, event_crm, sale_crm, website_crm, website_crm_iap_reveal, +2 more)
 - `addons/test_discuss_full` - Test of Discuss with all possible overrides installed. (depends: calendar, crm, crm_livechat, hr_attendance, hr_fleet, hr_holidays, im_livechat, mail, +6 more)

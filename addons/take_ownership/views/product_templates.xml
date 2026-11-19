@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product_title" inherit_id="website_sale.product_title" name="Condition and battery health">
+        <xpath expr="//h1[@t-field='product.name']" position="after">
+            <div class="o_take_ownership_condition mb-3">
+                <span t-attf-class="o_take_ownership_grade o_take_ownership_grade_#{product.condition_grade} badge"
+                    t-field="product.condition_grade"/>
+                <div t-if="product.has_battery" class="o_take_ownership_battery mt-2">
+                    <div class="d-flex justify-content-between small mb-1">
+                        <span>Battery health</span>
+                        <span class="o_take_ownership_battery_value"><t t-out="product.battery_health"/>%</span>
+                    </div>
+                    <div class="progress" role="progressbar"
+                        t-att-aria-valuenow="product.battery_health"
+                        aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar" t-attf-style="width: #{product.battery_health}%;"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

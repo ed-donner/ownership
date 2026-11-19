@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="public_category_laptops" model="product.public.category">
+        <field name="name">Laptops</field>
+    </record>
+    <record id="public_category_phones" model="product.public.category">
+        <field name="name">Phones</field>
+    </record>
+    <record id="public_category_tablets" model="product.public.category">
+        <field name="name">Tablets</field>
+    </record>
+    <record id="public_category_accessories" model="product.public.category">
+        <field name="name">Accessories</field>
+    </record>
+
+    <record id="product_macbook_air_m1" model="product.template">
+        <field name="name">MacBook Air (M1)</field>
+        <field name="type">consu</field>
+        <field name="categ_id" ref="product_category_laptops"/>
+        <field name="public_categ_ids" eval="[Command.link(ref('public_category_laptops'))]"/>
+        <field name="condition_grade">a</field>
+        <field name="battery_health">91</field>
+        <field name="list_price">749</field>
+        <field name="sale_ok" eval="True"/>
+        <field name="is_published" eval="True"/>
+        <field name="image_1920" type="base64" file="take_ownership/static/img/macbook-air-m1.jpg"/>
+    </record>
+
+    <record id="product_thinkpad_t14" model="product.template">
+        <field name="name">Lenovo ThinkPad T14</field>
+        <field name="type">consu</field>
+        <field name="categ_id" ref="product_category_laptops"/>
+        <field name="public_categ_ids" eval="[Command.link(ref('public_category_laptops'))]"/>
+        <field name="condition_grade">b</field>
+        <field name="battery_health">84</field>
+        <field name="list_price">429</field>
+        <field name="sale_ok" eval="True"/>
+        <field name="is_published" eval="True"/>
+        <field name="image_1920" type="base64" file="take_ownership/static/img/thinkpad-t14.jpg"/>
+    </record>
+
+    <record id="product_dell_xps_13" model="product.template">
+        <field name="name">Dell XPS 13</field>
+        <field name="type">consu</field>
+        <field name="categ_id" ref="product_category_laptops"/>
+        <field name="public_categ_ids" eval="[Command.link(ref('public_category_laptops'))]"/>
+        <field name="condition_grade">c</field>
+        <field name="battery_health">72</field>
+        <field name="list_price">599</field>
+        <field name="sale_ok" eval="True"/>
+        <field name="is_published" eval="True"/>
+        <field name="image_1920" type="base64" file="take_ownership/static/img/dell-xps-13.jpg"/>
+    </record>
+
+    <record id="product_iphone_13_pro" model="product.template">
+        <field name="name">iPhone 13 Pro</field>
+        <field name="type">consu</field>
+        <field name="categ_id" ref="product_category_phones"/>
+        <field name="public_categ_ids" eval="[Command.link(ref('public_category_phones'))]"/>
+        <field name="condition_grade">a</field>
+        <field name="battery_health">94</field>
+        <field name="list_price">579</field>
+        <field name="sale_ok" eval="True"/>
+        <field name="is_published" eval="True"/>
+        <field name="image_1920" type="base64" file="take_ownership/static/img/iphone-13-pro.jpg"/>
+    </record>
+
+    <record id="product_pixel_6" model="product.template">
+        <field name="name">Google Pixel 6</field>
+        <field name="type">consu</field>
+        <field name="categ_id" ref="product_category_phones"/>
+        <field name="public_categ_ids" eval="[Command.link(ref('public_category_phones'))]"/>
+        <field name="condition_grade">b</field>
+        <field name="battery_health">86</field>
+        <field name="list_price">249</field>
+        <field name="sale_ok" eval="True"/>
+        <field name="is_published" eval="True"/>
+        <field name="image_1920" type="base64" file="take_ownership/static/img/pixel-6.jpg"/>
+    </record>
+
+    <record id="product_fairphone_4" model="product.template">
+        <field name="name">Fairphone 4</field>
+        <field name="type">consu</field>
+        <field name="categ_id" ref="product_category_phones"/>
+        <field name="public_categ_ids" eval="[Command.link(ref('public_category_phones'))]"/>
+        <field name="condition_grade">parts</field>
+        <field name="battery_health">58</field>
+        <field name="list_price">89</field>
+        <field name="sale_ok" eval="True"/>
+        <field name="is_published" eval="True"/>
+        <field name="image_1920" type="base64" file="take_ownership/static/img/fairphone-4.jpg"/>
+    </record>
+
+    <record id="product_ipad_10_2" model="product.template">
+        <field name="name">iPad 10.2-inch</field>
+        <field name="type">consu</field>
+        <field name="categ_id" ref="product_category_tablets"/>
+        <field name="public_categ_ids" eval="[Command.link(ref('public_category_tablets'))]"/>
+        <field name="condition_grade">b</field>
+        <field name="battery_health">88</field>
+        <field name="list_price">229</field>
+        <field name="sale_ok" eval="True"/>
+        <field name="is_published" eval="True"/>
+        <field name="image_1920" type="base64" file="take_ownership/static/img/ipad-9th-generation.jpg"/>
+    </record>
+
+    <record id="product_galaxy_tab_s8_ultra" model="product.template">
+        <field name="name">Samsung Galaxy Tab S8 Ultra</field>
+        <field name="type">consu</field>
+        <field name="categ_id" ref="product_category_tablets"/>
+        <field name="public_categ_ids" eval="[Command.link(ref('public_category_tablets'))]"/>
+        <field name="condition_grade">c</field>
+        <field name="battery_health">77</field>
+        <field name="list_price">519</field>
+        <field name="sale_ok" eval="True"/>
+        <field name="is_published" eval="True"/>
+        <field name="image_1920" type="base64" file="take_ownership/static/img/galaxy-tab-s8-ultra.jpg"/>
+    </record>
+
+    <record id="product_baseus_charger_20w" model="product.template">
+        <field name="name">Baseus 20 W USB-C charger</field>
+        <field name="type">consu</field>
+        <field name="categ_id" ref="product_category_accessories"/>
+        <field name="public_categ_ids" eval="[Command.link(ref('public_category_accessories'))]"/>
+        <field name="condition_grade">a</field>
+        <field name="list_price">12</field>
+        <field name="sale_ok" eval="True"/>
+        <field name="is_published" eval="True"/>
+        <field name="image_1920" type="base64" file="take_ownership/static/img/usb-c-charger-20w.jpg"/>
+    </record>
+
+    <record id="product_airpods_pro_2" model="product.template">
+        <field name="name">AirPods Pro (2nd generation)</field>
+        <field name="type">consu</field>
+        <field name="categ_id" ref="product_category_accessories"/>
+        <field name="public_categ_ids" eval="[Command.link(ref('public_category_accessories'))]"/>
+        <field name="condition_grade">b</field>
+        <field name="list_price">89</field>
+        <field name="sale_ok" eval="True"/>
+        <field name="is_published" eval="True"/>
+        <field name="image_1920" type="base64" file="take_ownership/static/img/airpods-pro.jpg"/>
+    </record>
+
+</odoo>

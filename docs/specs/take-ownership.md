@@ -20,9 +20,11 @@ addons/take_ownership/
   demo/product_demo.xml                # ten devices, shop categories, publication
   demo/archive_odoo_demo_products.xml  # archives Odoo's demo products
   static/img/                          # the ten photos and CREDITS.md
-  static/fonts/                        # Instrument Sans, Instrument Serif, JetBrains Mono
+  static/fonts/                        # Instrument Sans, Instrument Serif, JetBrains Mono, with their OFL licenses
   static/src/scss/primary_variables.scss
-  static/src/scss/                     # badge, form and navbar styles
+  static/src/scss/fonts.scss           # @font-face
+  static/src/scss/backend.scss         # back office badge text, panels, numbers
+  static/src/scss/frontend.scss        # shop grade badge and battery bar
   tests/__init__.py, tests/test_product_grade.py
 ```
 
@@ -34,7 +36,7 @@ Both fields are on `product.template` (`models/product_template.py`, `_inherit =
 
 | Field | Type | Notes |
 |---|---|---|
-| `condition_grade` | `Selection` | `a` A (like new), `b` B (light wear), `c` C (visible wear), `parts` Parts (for repair). `required=True`, `default='b'`, `tracking=True`, `index=True` for the group-by. Label: "Condition". |
+| `condition_grade` | `Selection` | `a` A (like new), `b` B (light wear), `c` C (visible wear), `parts` Parts (for repair). `required=True`, `default='b'`, `tracking=True`. No index: four values is too few to be selective. Label: "Condition". |
 | `battery_health` | `Integer` | Percent, 0 to 100. A `models.Constraint` (`CHECK(battery_health BETWEEN 0 AND 100)`) enforces the range (`odoo/orm/table_objects.py`). Defaults to 0 and is only meaningful when `has_battery` is true. |
 | `has_battery` | `Boolean`, computed, not stored | True when `categ_id` is Laptops, Phones or Tablets or a child of one. `_compute_has_battery` depends on `categ_id.parent_path` and tests it against the three categories, found by xml id. Not stored and not searched; views use it for `invisible`. |
 
@@ -69,7 +71,7 @@ Views use `<list>`, `invisible="expr"` and the `card` kanban template; never `tr
 
 It is a plain QWeb template. The shop grid and tiles are not changed. The values do not depend on the selected variant, so they are rendered by QWeb and do not go through `_get_combination_info` (`addons/website_sale/models/product_template.py`).
 
-The page SCSS is in `web.assets_frontend` and uses only the badge and progress bar classes, not shop theme variables.
+The page SCSS (`frontend.scss`, `web.assets_frontend`) uses fixed brand colors, not shop theme variables. Classes are prefixed `o_take_ownership_`. Odoo's `.badge` rule forces `background` and `color` with `!important` from `--badge-bg` and `--badge-color`, so the grade colors are set through those variables.
 
 ## Sample data
 
@@ -100,7 +102,7 @@ Values come from `.claude/skills/brand/SKILL.md`. Light mode only: `color_scheme
 How it is wired (see `docs/specs/web-client.md`):
 
 - `static/src/scss/primary_variables.scss` is added to `web._assets_primary_variables` with `('before', 'web/static/src/scss/primary_variables.scss', ...)`. It sets `$o-brand-primary`, `$o-success`, `$o-info`, `$o-warning`, `$o-danger`, `$o-view-background-color`, the font variables and `$o-navbar-background` (declared in `addons/web/static/src/webclient/navbar/navbar.variables.scss`) with `!default` so core values do not win.
-- Fonts are shipped in `static/fonts/` and declared with `@font-face` in the addon SCSS; there is no link to Google Fonts (`skills/odoo-web-guidelines/guidelines/assets.md`).
+- Fonts are variable TTF files from the Google Fonts repository, shipped in `static/fonts/` with their OFL texts and declared with `@font-face` in the addon SCSS; there is no link to Google Fonts (`skills/odoo-web-guidelines/guidelines/assets.md`).
 - Component styles go in `web.assets_backend`.
 - Sea Green and Marigold are too bright for small text, so text on light backgrounds uses a darkened shade and Midnight text sits on filled Sea Green or Marigold.
 - No gradients and no one-sided borders.
